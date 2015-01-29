@@ -23,7 +23,6 @@
   </head>
   <body>
   <button onclick="showCode()">Show JavaScript</button>
-  <button onclick="codeGen()">Execute JavaScript</button>
   <div class="container">
     <div class="row">
       <div id="blocklyDiv" class="col-md-4"></div>
@@ -62,16 +61,6 @@
         document.getElementById('textarea').html = code;
       }
 
-      function codeGen(){
-        Blockly.JavaScript.addReservedWords('code');
-        var code = Blockly.JavaScript.workspaceToCode();
-        try {
-          eval(code);
-        } catch (e) {
-          alert(e);
-        }
-      }
-
       window.addEventListener('load', BlocklyInit);
 
       function BlocklyInit(){
@@ -88,7 +77,8 @@
         fullscreen: false,
         autostart: true
       }).appendTo(elem);
-      var rect = two.makeRectangle(two.width / 2, two.height / 2, 50 ,50);
+
+      var rect = two.makeRectangle(0, 0, 50 ,50);
       two.bind('update', function() {
         rect.rotation += 0.001;
       });

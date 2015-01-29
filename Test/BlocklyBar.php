@@ -22,7 +22,7 @@
         var code = Blockly.JavaScript.workspaceToCode();
         document.getElementById('textarea').value = code;
       }
-      //Blockly.addChangeListener(myUpdateFunction);
+      Blockly.addChangeListener(myUpdateFunction);
     </script>
   </head>
   <body>

@@ -11,6 +11,7 @@
     <script type="text/javascript" src="/BlockyMech/Framework/blockly/msg/js/es.js"></script>
     <script type="text/javascript" src="/BlockyMech/Framework/blockly/javascript_compressed.js"></script>
     <script type="text/javascript" src="/BlockyMech/Framework/blockly/blocks/BlockyMech_blocks.js"></script>
+    <script type="text/javascript" src="/BlockyMech/js/BlockyMech.js"></script>
     
     <style type="text/css">
       #blocklyDiv{
@@ -66,6 +67,7 @@
         Blockly.JavaScript.addReservedWords('code');
         var code = Blockly.JavaScript.workspaceToCode();
         try {
+          alert(code);
           eval(code);
         } catch (e) {
           alert(e);
@@ -77,7 +79,7 @@
       function BlocklyInit(){
         Blockly.inject(document.getElementById('blocklyDiv'),
           {toolbox: document.getElementById('toolbox')});
-        //Blockly.addChangeListener(myUpdateFunction);
+        Blockly.addChangeListener(myUpdateFunction);
       }
     </script>
   </div>
@@ -88,10 +90,11 @@
         fullscreen: false,
         autostart: true
       }).appendTo(elem);
-      var rect = two.makeRectangle(two.width / 2, two.height / 2, 50 ,50);
+      //x=0 , y=0 situa el cuadrado en la esquina superior izquierda
+      /*var rect = two.makeRectangle(two.width / 2, two.height / 2, 100 ,50);
       two.bind('update', function() {
         rect.rotation += 0.001;
-      });
+      });*/
     </script>
   </body>
 </html>

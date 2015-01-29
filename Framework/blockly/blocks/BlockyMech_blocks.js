@@ -1,6 +1,6 @@
 Blockly.Blocks['point'] = {
   init: function() {
-    this.setHelpUrl('http://www.example.com/');
+    this.setHelpUrl('https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#nbo2pg');
     this.setColour(210);
     this.appendDummyInput()
         .appendField("Point")
@@ -20,3 +20,5 @@ Blockly.Blocks['point'] = {
     this.setTooltip('Create a spatial point attached to the ground');
   }
 };
+
+

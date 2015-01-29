@@ -23,7 +23,6 @@
   </head>
   <body>
   <button onclick="showCode()">Show JavaScript</button>
-  <button onclick="codeGen()">Execute JavaScript</button>
   <div class="container">
     <div class="row">
       <div id="blocklyDiv" class="col-md-4"></div>
@@ -62,16 +61,6 @@
         document.getElementById('textarea').html = code;
       }
 
-      function codeGen(){
-        Blockly.JavaScript.addReservedWords('code');
-        var code = Blockly.JavaScript.workspaceToCode();
-        try {
-          eval(code);
-        } catch (e) {
-          alert(e);
-        }
-      }
-
       window.addEventListener('load', BlocklyInit);
 
       function BlocklyInit(){
@@ -88,10 +77,64 @@
         fullscreen: false,
         autostart: true
       }).appendTo(elem);
-      var rect = two.makeRectangle(two.width / 2, two.height / 2, 50 ,50);
+      //x=0 , y=0 situa el cuadrado en la esquina superior izquierda
+      rect = GroundJoint(two.width / 2,two.height / 2);
+      rect = floatJoint(two.width / 2,two.height / 2);
+      //anch=rect.center();
+      //alert(anch.x);
+      //rect.center (-50,20);
+      //var anchor = new Two.Anchor(x, y, x+10, y+10, x-5, y+5,'');
+      //two.add(anchor)
+      two.add(rect);
       two.bind('update', function() {
-        rect.rotation += 0.001;
+        //rect.rotation += 0.01;
       });
+
+      function GroundJoint(x,y){
+        var joint =  two.makeCircle(x ,y , 5);
+        side=15; //Triangle side length
+        var triangle = two.makePolygon(x, y, x+side/2, y+side, x-side/2, y+side, false);
+        line_l=5;
+        hol=3; // Holgura
+        sep = side +hol; // separacion
+        l=line_l/Math.sqrt(2);
+        var line = two.makeLine(x+l, y+sep, x-l, y+sep+2*l);
+        var line2 = line.clone();
+        val_x=5;
+        var vector = new Two.Vector(val_x, 0);
+        line2.translation.add(line2.translation,vector);
+        vector = new Two.Vector(-val_x, 0);
+        var line3 = line.clone();
+        line3.translation.add(line3.translation,vector);
+        var group = new Two.Group();
+        var centroid = new Two.Vector(x, y);
+
+        group.add(joint,triangle,line,line2,line3);
+        return group;
+      }
+
+      function floatJoint(x,y){
+        var joint =  two.makeCircle(x ,y , 5);
+        side=15; //Triangle side length
+        var rectangle = two.makeRectangle(x, y, 2*side,side);
+        line_l=5;
+        hol=3; // Holgura
+        sep = side/2 +hol; // separacion
+        l=line_l/Math.sqrt(2);
+        var line = two.makeLine(x+l, y+sep, x-l, y+sep+2*l);
+        var line2 = line.clone();
+        val_x=7;
+        var vector = new Two.Vector(val_x, 0);
+        line2.translation.add(line2.translation,vector);
+        vector = new Two.Vector(-val_x, 0);
+        var line3 = line.clone();
+        line3.translation.add(line3.translation,vector);
+        var group = new Two.Group();
+        var centroid = new Two.Vector(x, y);
+
+        group.add(rectangle,joint,line,line2,line3);
+        return group;
+      }
     </script>
   </body>
 </html>
